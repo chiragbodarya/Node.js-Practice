@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home page</title>
+</head>
+
+<body>
+    <%- include('navbar'); %>
+        <h1>this exapmple of ejs</h1>
+        <h1>This is a Home Page</h1>
+        <p>
+            <%= user.name%>
+        </p>
+        <p>
+            <%= user.age%>
+        </p>
+        <p>
+            <%= user.email%>
+        </p>
+        <ul>
+            <% user.brother.map((data)=>{ %>
+                <li>
+                    <%=data%>
+                </li>
+                <% }) %>
+        </ul>
+</body>
+
+</html>
