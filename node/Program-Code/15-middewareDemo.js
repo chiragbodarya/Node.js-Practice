@@ -1,5 +1,5 @@
 
-// this is a example of meddaware 
+// this is a example of middaware 
 
 
 const express = require('express');
