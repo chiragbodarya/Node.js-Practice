@@ -1,0 +1,25 @@
+<% include('../layout/header.ejs') %>
+
+    <div style="display: flex; justify-content: center">
+        <div style="display: flex; flex-direction: column; align-items: center">
+            <h1>Use Registion Form</h1>
+
+            <form action="" method="post" enctype="multipart/form-data">
+                <input type="text" name="name" placeholder="Enter Name" required /><br /><br />
+                <input type="email" name="email" placeholder="Enter email" required /><br /><br />
+                <input type="Number" name="mno" placeholder="Enter Mobile Number" required /><br /><br />
+                <input type="file" name="image" required /><br /><br />
+                <input type="password" name="password" placeholder="Enter Password" required /><br /><br />
+                <input type="submit" value="Registion" required /><br /><br />
+            </form>
+
+            <% if (typeof message !=='undefined' ) { %>
+                <p style="color: green">
+                    <%= message %>
+                </p>
+                <% } %>
+
+        </div>
+    </div>
+
+    <% include('../layout/footer.ejs') %>
