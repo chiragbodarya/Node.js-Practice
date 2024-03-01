@@ -25,8 +25,8 @@ const sendVarifyMail = async (name, email, user_id) => {
             // requireTLS: true,
             service: 'gmail',
             auth: {
-                user: 'davidgujju01@gmail.com',//enter your email
-                password: 'CHIRAG$$0505r',//enter email password
+                user: 'demoemail.com',//enter your email
+                password: 'emailpassword',//enter email password
             },
             // connectionTimeout: 1 * 60 * 1000,
         })
