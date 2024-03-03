@@ -8,6 +8,7 @@ const app = express();
 
 //for user_routes
 const userRoute = require('./routes/userRoute')
+app.use(express.json())
 app.use('/', userRoute)
 
 app.listen(3000, (error) => {

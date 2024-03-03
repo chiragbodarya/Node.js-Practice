@@ -1,0 +1,21 @@
+<% include('../layout/header.ejs') %>
+
+    <div style="display: flex; justify-content: center">
+        <div style="display: flex; flex-direction: column; align-items: center">
+            <h1>Use login Form</h1>
+            <% if (typeof message !=='undefined' ) { %>
+                <h4 style="color: rgb(128, 0, 0)">
+                    <%= message %>
+                </h4>
+                <% } %>
+
+
+                    <form action="/login" method="post">
+                        <input type="email" name="email" placeholder="Enter email" required /><br /><br />
+                        <input type="password" name="password" placeholder="Enter Password" required /><br /><br />
+                        <input type="submit" value="Login" required /><br /><br />
+                    </form>
+        </div>
+    </div>
+
+    <% include('../layout/footer.ejs') %>

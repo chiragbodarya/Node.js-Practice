@@ -4,6 +4,8 @@ const nodemailer = require('nodemailer')
 
 
 
+
+
 // this code from password security use bcrypt
 const securePassword = async (password) => {
     try {
@@ -20,15 +22,17 @@ const sendVarifyMail = async (name, email, user_id) => {
     try {
         const transporter = nodemailer.createTransport({
             // host: 'smtp.gmail.com',
-            // port: 3000,
+            // port: 587,
             // secure: false,
             // requireTLS: true,
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
             service: 'gmail',
             auth: {
-                user: 'demoemail.com',//enter your email
-                password: 'emailpassword',//enter email password
+                user: 'davidgujju01@gmail.com',//enter your email
+                pass: 'yjxl nbif jatn newl',//enter email password //yjxl nbif jatn newl --  this is a pssword form smtp server
             },
-            // connectionTimeout: 1 * 60 * 1000,
         })
         const mailOptions = {
             from: 'davidgujju01@gmail.com',
@@ -39,15 +43,16 @@ const sendVarifyMail = async (name, email, user_id) => {
         };
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
-                console.log(error.message);
+                console.log(error);
             } else {
                 console.log('Email sent: ' + info.response);
             }
         });
     } catch (error) {
-        console.log(error.message)
+        console.log("error", error)
     }
 }
+
 
 const verifyMail = async (req, res) => {
     try {
@@ -60,7 +65,6 @@ const verifyMail = async (req, res) => {
 }
 
 
-
 //this code work is render the /registration
 const loadRegister = (req, res) => {
     try {
@@ -69,7 +73,6 @@ const loadRegister = (req, res) => {
         console.log(error)
     }
 }
-
 
 
 // this controller is use to collect the data form /registration router and set data in data base
@@ -98,4 +101,61 @@ const insertUser = async (req, res) => {
 
 
 
-module.exports = { loadRegister, insertUser, verifyMail }
+// this code is login use code render the /login
+const loginLoad = async (req, res) => {
+    try {
+        res.render('login')
+    } catch (error) {
+        console.log('Error', error.message);
+    }
+}
+
+
+//this code is verify login
+const verifyLogin = async (req, res) => {
+    try {
+        const userEmail = req.body.email;
+        const userPassword = req.body.password;
+        const userData = await User.findOne({ email: userEmail });
+        if (userData) {
+            const passwordMatch = await bcrypt.compare(userPassword, userData.password);
+            if (passwordMatch) {
+                if (userData.is_varified === 0) {
+                    res.render('login', { message: 'pleace verify your email' })
+                } else {
+                    req.session.user_id = userData._id;
+                    res.redirect('/home')
+                }
+            } else {
+                res.render('login', { message: 'email and password are incorrect' })
+            }
+        } else {
+            res.render('login', { message: 'email and password are incorrect' })
+        }
+    } catch (error) {
+        console.log('Error', error.message);
+    }
+}
+
+const userLogout = async (req, res) => {
+    try {
+        req.session.destroy();
+        res.redirect('/');
+    } catch (error) {
+        console.log('error', error.message);
+    }
+}
+
+
+
+// this code is render the home page /home route
+const loadHome = async (req, res) => {
+    try {
+        res.render('home')
+    } catch (error) {
+        console.log('error', error.message);
+    }
+}
+
+
+module.exports = { loadRegister, insertUser, verifyMail, loginLoad, verifyLogin, loadHome, userLogout }

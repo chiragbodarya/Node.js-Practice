@@ -1,7 +1,15 @@
 const express = require('express');
 const user_route = express();
 const userController = require('../controllers/userController');
+const session = require('express-session');
 
+const config = require('../config/config');
+
+user_route.use(session({ secret: config.sessionSecret }))
+
+
+
+const auth = require('../middleware/auth');
 
 
 
@@ -33,13 +41,19 @@ const upload = multer({ storage: storage });
 
 
 // this is your router 
-user_route.get('/registration', userController.loadRegister);
+user_route.get('/registration', auth.isLogout, userController.loadRegister);
 
 user_route.post('/registration', upload.single('image'), userController.insertUser);
 
 user_route.get('/verify', userController.verifyMail);
 
+user_route.get('/', auth.isLogout, userController.loginLoad)
+user_route.get('/login', auth.isLogout, userController.loginLoad)
+user_route.post('/login', userController.verifyLogin)
+
+user_route.get('/logout', auth.isLoging, userController.userLogout)
 
 
+user_route.get('/home', auth.isLoging, userController.loadHome)
 
 module.exports = user_route;
