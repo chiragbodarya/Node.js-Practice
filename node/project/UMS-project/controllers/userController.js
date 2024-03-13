@@ -21,21 +21,18 @@ const securePassword = async (password) => {
 const sendVarifyMail = async (name, email, user_id) => {
     try {
         const transporter = nodemailer.createTransport({
-            // host: 'smtp.gmail.com',
-            // port: 587,
-            // secure: false,
-            // requireTLS: true,
+            // this host and port ans auth is all detail provied bt smtp server do first creat this server after try this code 
             host: 'smtp.gmail.com',
             port: 465,
             secure: true,
             service: 'gmail',
             auth: {
-                user: 'davidgujju01@gmail.com',//enter your email
-                pass: 'yjxl nbif jatn newl',//enter email password //yjxl nbif jatn newl --  this is a pssword form smtp server
+                user: '',//enter your email
+                pass: '',//enter email password //wer wer rwewf like this --  this is a pssword form smtp server
             },
         })
         const mailOptions = {
-            from: 'davidgujju01@gmail.com',
+            from: '',
             to: email,
             subject: 'for verifivation email use nodemailer',
             // text: 'That was easy!',
